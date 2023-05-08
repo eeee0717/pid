@@ -39,8 +39,9 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 uint8_t uart1_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
-uint8_t flag = 0;        // flag
-
+uint8_t uart1_flag = 0;  // uart1_flag
+uint8_t uart2_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
+uint8_t uart2_flag = 0;  // uart1_flag
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -91,7 +92,7 @@ int main(void)
   // float previous_error = 0.0;
   // float error = 0;
   // float proportional, derivative, control;
-  int car_left_flag = 0;
+  int car_left_uart1_flag = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -128,6 +129,8 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
   HAL_UART_Receive_IT(&huart1, uart1_buffer, sizeof(uart1_buffer));
+  HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer));
+
   // 舵机初始化
   servo_init();
   // Mpu6050_Init();
@@ -143,14 +146,17 @@ int main(void)
 
   while (1)
   {
-    printf("uart1_buffer: %d", uart1_buffer[0]);
     // CarStraight();
-
+    if (uart2_flag == 1)
+    {
+      printf("uart2_buffer: %d", uart2_buffer[0]);
+      uart2_flag = 0;
+    }
     // car_stright(left_pwm, right_pwm);
     // delay_ms(100);
     // printf("yaw=  %.2f\r\n", current_yaw);
     // car_stright(3500, 3500);
-    // if (flag == 1)
+    // if (uart1_flag == 1)
     // {
     //   if (uart1_buffer[0] == 'a')
     //   {
@@ -169,7 +175,7 @@ int main(void)
     //   {
     //     car_right(0, 0);
     //   }
-    //   flag = 0;
+    //   uart1_flag = 0;
     // }
     //		pid_control(0,get_angle());
     /* USER CODE END WHILE */
@@ -225,9 +231,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
     // 接收到数据后，将其存储到buffer数组中
     HAL_UART_Receive_IT(&huart1, uart1_buffer, sizeof(uart1_buffer)); // 再次启用串口接收中断，以接收下一批数据
-    flag = 1;
+    uart1_flag = 1;
 
-    //		HAL_UART_Transmit(&huart1, uart1_buffer, sizeof(uart1_buffer), HAL_MAX_DELAY);
+    // HAL_UART_Transmit(&huart1, uart1_buffer, sizeof(uart1_buffer), HAL_MAX_DELAY);
+  }
+  if (huart->Instance == USART2)
+  {
+
+    // 接收到数据后，将其存储到buffer数组中
+    HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer)); // 再次启用串口接收中断，以接收下一批数据
+    uart2_flag = 1;
+
+    // HAL_UART_Transmit(&huart1, uart1_buffer, sizeof(uart1_buffer), HAL_MAX_DELAY);
   }
 }
 
