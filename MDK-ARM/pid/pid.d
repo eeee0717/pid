@@ -33,5 +33,4 @@ pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 pid\pid.o: D:\keil5\ARM\ARMCC\Bin\..\include\math.h
 pid\pid.o: ..\hardware\Car\car.h
-pid\pid.o: ../Core/Inc/usart.h
 pid\pid.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

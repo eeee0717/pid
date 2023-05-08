@@ -156,7 +156,9 @@ int main(void)
 
   Mpu6050_Init();
   // ×ó×ª
-  motor_turn_left();
+  // motor_turn_left();
+  // Õý×ª
+  motor_forward();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -164,10 +166,8 @@ int main(void)
 
   while (1)
   {
-    car_left_flag = CarLeft90();
-    if (car_left_flag == 1)
-      break;
-   
+
+    CarStraight();
 
     // car_stright(left_pwm, right_pwm);
     // delay_ms(100);
@@ -199,10 +199,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
-  while (1)
-  {
-    car_stop();
-  }
+
   /* USER CODE END 3 */
 }
 
