@@ -32,6 +32,7 @@
 #include "inv_mpu_dmp_motion_driver.h"
 #include <math.h>
 #include "car.h"
+#include "servo.h"
 
 /* USER CODE END Includes */
 
@@ -66,37 +67,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-// 定义PID参数
-float kp = 1.0;  // 比例系数
-float ki = 0.5;  // 积分系数
-float kd = 0.1;  // 微分系数
-float dt = 0.01; // 时间间隔
-
-// 定义PID变量
-float pid_error = 0;
-float pid_last_error = 0;
-float pid_integral = 0;
-float pid_derivative = 0;
-float pid_output = 0;
-
-void pid_control(float target_angle, float current_angle)
-{
-  // 计算误差
-  pid_error = target_angle - current_angle;
-
-  // 计算积分项
-  pid_integral += pid_error * dt;
-
-  // 计算微分项
-  pid_derivative = (pid_error - pid_last_error) / dt;
-  pid_last_error = pid_error;
-
-  // 计算PID输出
-  pid_output = kp * pid_error + ki * pid_integral + kd * pid_derivative;
-
-  // 输出PID输出
-  //  printf("PID output: %.2f\r\n", pid_output);
-}
 
 // 函数声明
 void Mpu6050_Init(void);
@@ -144,21 +114,28 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   MX_TIM2_Init();
-
-  /* USER CODE BEGIN 2 */
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+  MX_TIM3_Init();
+  /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_Base_Start(&htim3);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
   HAL_UART_Receive_IT(&huart1, uart1_buffer, sizeof(uart1_buffer));
-
-  Mpu6050_Init();
+  // 舵机初始化
+  servo_init();
+  // Mpu6050_Init();
   // 左转
   // motor_turn_left();
   // 正转
   motor_forward();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -166,8 +143,8 @@ int main(void)
 
   while (1)
   {
-
-    CarStraight();
+    printf("uart1_buffer: %d", uart1_buffer[0]);
+    // CarStraight();
 
     // car_stright(left_pwm, right_pwm);
     // delay_ms(100);

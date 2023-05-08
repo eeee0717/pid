@@ -8,6 +8,8 @@
         "*.tcc": "c",
         "cstdlib": "c",
         "car.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "tim.h": "c",
+        "servo.h": "c"
     }
 }

@@ -1,8 +1,4 @@
-*** Using Compiler 'V5.05 update 1 (build 106)', folder: 'D:\keil5\ARM\ARMCC\Bin'
-Build target 'pid'
-compiling pid.c...
-linking...
-Program Size: Code=32042 RO-data=3950 RW-data=136 ZI-data=2008  
-FromELF: creating hex file...
-"pid\pid.axf" - 0 Error(s), 0 Warning(s).
-Build Time Elapsed:  00:00:01
+Load "pid\\pid.axf" 
+RDDI-DAP Error
+Error: Flash Download failed  -  Target DLL has been cancelled
+Flash Load finished at 21:31:54
