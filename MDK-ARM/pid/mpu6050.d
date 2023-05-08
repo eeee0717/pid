@@ -31,4 +31,6 @@ pid\mpu6050.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 pid\mpu6050.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 pid\mpu6050.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 pid\mpu6050.o: ..\hardware\MPU6050\./delay.h
+pid\mpu6050.o: ../hardware/MPU6050/eMPL/inv_mpu.h
+pid\mpu6050.o: ../hardware/MPU6050/eMPL/inv_mpu_dmp_motion_driver.h
 pid\mpu6050.o: ../Core/Inc/i2c.h

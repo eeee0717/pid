@@ -1,0 +1,3 @@
+Load "pid\\pid.axf" 
+Erase Done.Programming Done.Verify OK.Application running ...
+Flash Load finished at 16:37:34
