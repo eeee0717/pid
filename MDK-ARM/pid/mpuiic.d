@@ -1,0 +1,11 @@
+pid\mpuiic.o: HARDWARE\MPU6050\mpuiic.c
+pid\mpuiic.o: HARDWARE\MPU6050\mpuiic.h
+pid\mpuiic.o: .\HARDWARE\sys\sys.h
+pid\mpuiic.o: C:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\1.0.5\Device\Include\stm32f10x.h
+pid\mpuiic.o: ../Drivers/CMSIS/Include/core_cm3.h
+pid\mpuiic.o: C:\mdk\ARM\ARMCC\Bin\..\include\stdint.h
+pid\mpuiic.o: ../Drivers/CMSIS/Include/cmsis_version.h
+pid\mpuiic.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+pid\mpuiic.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+pid\mpuiic.o: C:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\1.0.5\Device\Include\system_stm32f10x.h
+pid\mpuiic.o: .\HARDWARE\delay\delay.h

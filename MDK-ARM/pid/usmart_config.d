@@ -1,0 +1,14 @@
+pid\usmart_config.o: USMART\usmart_config.c
+pid\usmart_config.o: USMART\usmart.h
+pid\usmart_config.o: USMART\usmart_str.h
+pid\usmart_config.o: C:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\1.0.5\Device\Include\stm32f10x.h
+pid\usmart_config.o: ../Drivers/CMSIS/Include/core_cm3.h
+pid\usmart_config.o: C:\mdk\ARM\ARMCC\Bin\..\include\stdint.h
+pid\usmart_config.o: ../Drivers/CMSIS/Include/cmsis_version.h
+pid\usmart_config.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+pid\usmart_config.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+pid\usmart_config.o: C:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\1.0.5\Device\Include\system_stm32f10x.h
+pid\usmart_config.o: .\HARDWARE\delay\delay.h
+pid\usmart_config.o: .\HARDWARE\sys\sys.h
+pid\usmart_config.o: .\HARDWARE\MPU6050\mpu6050.h
+pid\usmart_config.o: .\HARDWARE\MPU6050\mpuiic.h
