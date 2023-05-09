@@ -137,7 +137,7 @@ int main(void)
   // 左转
   // motor_turn_left();
   // 正转
-  motor_forward();
+  // motor_forward();
 
   /* USER CODE END 2 */
 
@@ -147,11 +147,23 @@ int main(void)
   while (1)
   {
     // CarStraight();
+
+    // 调试串口用
     if (uart2_flag == 1)
     {
-      printf("uart2_buffer: %d", uart2_buffer[0]);
-      uart2_flag = 0;
+      if (uart2_buffer[0] == 'a')
+      {
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        delay_ms(100);
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        delay_ms(100);
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        delay_ms(100);
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        uart2_flag = 0;
+      }
     }
+
     // car_stright(left_pwm, right_pwm);
     // delay_ms(100);
     // printf("yaw=  %.2f\r\n", current_yaw);
