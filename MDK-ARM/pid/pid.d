@@ -1,7 +1,5 @@
 pid\pid.o: ..\hardware\PID\pid.c
 pid\pid.o: ..\hardware\PID\pid.h
-pid\pid.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
-pid\pid.o: ../hardware/MPU6050/mpu6050.h
 pid\pid.o: ../Core/Inc/main.h
 pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 pid\pid.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -32,8 +30,10 @@ pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 pid\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+pid\pid.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
+pid\pid.o: ../hardware/MPU6050/mpu6050.h
 pid\pid.o: D:\keil5\ARM\ARMCC\Bin\..\include\math.h
 pid\pid.o: ../Core/Inc/usart.h
-pid\pid.o: ..\hardware\Camera\camera.h
+pid\pid.o: ../hardware/Camera/camera.h
 pid\pid.o: ../hardware/MPU6050/delay.h
 pid\pid.o: ../hardware/Car/car.h

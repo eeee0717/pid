@@ -1,6 +1,5 @@
 pid\camera.o: ..\hardware\Camera\camera.c
 pid\camera.o: ..\hardware\Camera\camera.h
-pid\camera.o: ../Core/Inc/usart.h
 pid\camera.o: ../Core/Inc/main.h
 pid\camera.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 pid\camera.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -31,4 +30,5 @@ pid\camera.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 pid\camera.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 pid\camera.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 pid\camera.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+pid\camera.o: ../Core/Inc/usart.h
 pid\camera.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h

@@ -17,26 +17,24 @@ Library Manager: ArmAr.exe V5.05 update 1 (build 106)
 Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
 CPU DLL:         SARMCM3.DLL V5.14.0.0
 Dialog DLL:      DCM.DLL V1.13.1.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
+Target DLL:      CMSIS_AGDI.dll V1.21.0.0
 Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
-c:\Users\eeee\Desktop\20230505\stm32\pid_mpu6050\pid\MDK-ARM\pid.uvprojx
-Project File Date:  05/09/2023
+C:\Users\eeee\Desktop\20230505\stm32\pid_mpu6050\pid\MDK-ARM\pid.uvprojx
+Project File Date:  05/10/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 1 (build 106)', folder: 'D:\keil5\ARM\ARMCC\Bin'
 Build target 'pid'
-compiling pid.c...
-..\hardware\PID\pid.c(87): warning:  #550-D: variable "left_pwm" was set but never used
-      int left_pwm = 500;
-..\hardware\PID\pid.c(88): warning:  #550-D: variable "right_pwm" was set but never used
-      int right_pwm = 500;
-..\hardware\PID\pid.c: 2 warnings, 0 errors
+compiling main.c...
+../Core/Src/main.c(103): warning:  #177-D: variable "problem1_flag" was declared but never referenced
+    int problem1_flag = 0;
+../Core/Src/main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=29030 RO-data=3778 RW-data=104 ZI-data=2080  
+Program Size: Code=34118 RO-data=3954 RW-data=116 ZI-data=2084  
 FromELF: creating hex file...
-"pid\pid.axf" - 0 Error(s), 2 Warning(s).
+"pid\pid.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

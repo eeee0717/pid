@@ -1,6 +1,5 @@
 pid\servo.o: ..\hardware\Servo\servo.c
 pid\servo.o: ..\hardware\Servo\servo.h
-pid\servo.o: ../Core/Inc/tim.h
 pid\servo.o: ../Core/Inc/main.h
 pid\servo.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 pid\servo.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -31,3 +30,4 @@ pid\servo.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 pid\servo.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 pid\servo.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 pid\servo.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+pid\servo.o: ../Core/Inc/tim.h

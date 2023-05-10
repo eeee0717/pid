@@ -1,3 +1,4 @@
 Load "pid\\pid.axf" 
-Erase Done.Programming Done.Verify OK.Application running ...
-Flash Load finished at 14:17:09
+RDDI-DAP Error
+Error: Flash Download failed  -  Target DLL has been cancelled
+Flash Load finished at 19:40:27

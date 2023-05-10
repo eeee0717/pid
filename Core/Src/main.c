@@ -39,12 +39,15 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
-uint8_t uart1_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
+char uart1_buffer;       // 定义一个长度为10的数组，用于存储接收到的数据
 uint8_t uart1_flag = 0;  // uart1_flag
 uint8_t uart2_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
 uint8_t uart2_flag = 0;
 uint8_t uart3_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
 uint8_t uart3_flag = 0;  // uart1_flag
+int car_straight_flag = 0;
+int car_right_flag = 0;
+int car_left_flag = 0;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -96,7 +99,7 @@ int main(void)
   // float previous_error = 0.0;
   // float error = 0;
   // float proportional, derivative, control;
-  int car_left_uart1_flag = 0;
+
   int problem1_flag = 0;
 
   /* USER CODE END 1 */
@@ -134,7 +137,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
-  HAL_UART_Receive_IT(&huart1, uart1_buffer, sizeof(uart1_buffer));
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart1_buffer, sizeof(uart1_buffer));
   HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer));
   HAL_UART_Receive_IT(&huart3, uart3_buffer, sizeof(uart3_buffer));
 
@@ -260,8 +263,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   {
 
     // 接收到数据后，将其存储到buffer数组中
-    HAL_UART_Receive_IT(&huart1, uart1_buffer, sizeof(uart1_buffer)); // 再次启用串口接收中断，以接收下一批数据
+    HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart1_buffer, sizeof(uart1_buffer)); // 再次启用串口接收中断，以接收下一批数据
     uart1_flag = 1;
+    if (uart1_flag == 1)
+    {
+      if (uart1_buffer == 'b')
+      {
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+        car_straight_flag = 1;
+      }
+      uart1_buffer = '0';
+      uart1_flag = 0;
+    }
 
     // HAL_UART_Transmit(&huart1, uart1_buffer, sizeof(uart1_buffer), HAL_MAX_DELAY);
   }
@@ -271,8 +284,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     // 接收到数据后，将其存储到buffer数组中
     HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer)); // 再次启用串口接收中断，以接收下一批数据
     uart2_flag = 1;
+
     // 不能发！！！发了会清零
-    // HAL_UART_Transmit(&huart1, uart2_buffer, sizeof(uart2_buffer), HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart2, uart2_buffer, sizeof(uart2_buffer), HAL_MAX_DELAY);
   }
 }
 
@@ -290,36 +304,64 @@ void Mpu6050_Init(void)
   }
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
   printf("%s\r\n", "Mpu6050 Init OK!");
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
 }
 
 void Problem1(void)
 {
-  CarStraight();
-  //  UsartTest();
-
-  if (uart1_flag == 1)
+  if (car_straight_flag == 0)
+    CarStraight();
+  if (car_straight_flag == 1)
   {
-    if (uart1_buffer[0] == 'b')
+    car_stop();
+    delay_ms(1000);
+    while (1)
     {
-      while (1)
+      car_right_flag = CarLeft90();
+      while (car_right_flag)
       {
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        delay_ms(100);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        delay_ms(100);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        delay_ms(100);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
         car_stop();
+        delay_ms(1000);
+        motor_backward();
+        car_stright(600, 610);
+        delay_ms(700);
+        car_stop();
+        delay_ms(3000);
+        motor_forward();
+        car_stright(600, 611);
+        delay_ms(700);
+        car_stop();
+        delay_ms(700);
+        while (1)
+        {
+          car_left_flag = CarRight90();
+          while (car_left_flag)
+          {
+            car_stop();
+            delay_ms(1000);
+            motor_forward();
+            car_stright(600, 610);
+            delay_ms(700);
+            car_stop();
+            while (1)
+              ;
+          }
+        }
+
+        // car_left_flag = CarRight90();
+        // while (car_left_flag)
+        // {
+        //   car_stop();
+        //   delay_ms(1000);
+        //   motor_forward();
+        //   CarStraight();
+        //   delay_ms(5000);
+        //   car_stop();
+        //   while (1)
+        //     ;
+        // }
       }
-      // flag = camera_confirm(2);
-      // while (flag)
-      // {
-      //   UsartTest();
-      // }
     }
-    uart1_buffer[0] = 0;
-    uart1_flag = 0;
   }
 }
 /* USER CODE END 4 */

@@ -40,6 +40,6 @@ pid\main.o: ../hardware/MPU6050/eMPL/inv_mpu.h
 pid\main.o: ../hardware/MPU6050/eMPL/inv_mpu_dmp_motion_driver.h
 pid\main.o: D:\keil5\ARM\ARMCC\Bin\..\include\math.h
 pid\main.o: ../hardware/Car/car.h
-pid\main.o: ..\hardware\Servo\servo.h
-pid\main.o: ..\hardware\PID\pid.h
-pid\main.o: ..\hardware\Camera\camera.h
+pid\main.o: ../hardware/Servo/servo.h
+pid\main.o: ../hardware/PID/pid.h
+pid\main.o: ../hardware/Camera/camera.h

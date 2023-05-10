@@ -1,5 +1,5 @@
 pid\car.o: ..\hardware\Car\car.c
-pid\car.o: ../Core/Inc/tim.h
+pid\car.o: ..\hardware\Car\car.h
 pid\car.o: ../Core/Inc/main.h
 pid\car.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 pid\car.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -30,7 +30,7 @@ pid\car.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 pid\car.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 pid\car.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 pid\car.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+pid\car.o: ../Core/Inc/tim.h
 pid\car.o: ../Core/Inc/usart.h
 pid\car.o: D:\keil5\ARM\ARMCC\Bin\..\include\stdio.h
 pid\car.o: ../Core/Inc/gpio.h
-pid\car.o: ..\hardware\Car\car.h
