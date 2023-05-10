@@ -38,7 +38,7 @@ int CarLeft90(void)
     int left_pwm = 0;
     int right_pwm = 0;
 
-    float target_angle = 78.0; // 假设目标方向为90度
+    float target_angle = 75.0; // 假设目标方向为90度
     float Kp = 1.0;
     float Ki = 0;
     float Kd = 0.01;
@@ -79,7 +79,7 @@ int CarRight90(void)
     int left_pwm = 0;
     int right_pwm = 0;
 
-    float target_angle = 12; // 假设目标方向为90度
+    float target_angle = 10; // 假设目标方向为90度
     float Kp = 1.0;
     float Ki = 0;
     float Kd = 0.01;
@@ -166,5 +166,92 @@ void CarStraight(void)
 }
 void CarBack(void)
 {
-    car_stright(550, 600);
+    float current_yaw = 0.0;
+    int left_pwm = 500;
+    int right_pwm = 500;
+
+    float target_angle = 90.0;
+    float Kp = 1.0;
+    float Ki = 0;
+    float Kd = 0.01;
+    float integral = 0.0;
+    float error = 0;
+    float proportional, derivative, control;
+
+    current_yaw = get_yaw();
+    printf("current_yaw=  %.2f\r\n", current_yaw);
+    error = target_angle - current_yaw;
+    printf("error=  %.2f\r\n", error);
+
+    // 计算比例项、积分项、微分项
+    proportional = Kp * error;
+    integral += Ki * error;
+    derivative = Kd * (error - straight_previous_error);
+
+    // 计算控制量
+    control = proportional + integral + derivative;
+    control = control / 3;
+    // printf("control=  %.2f\r\n", control);
+    straight_previous_error = error;
+    // 左偏error < 0
+    if (error < -1.5)
+    {
+        left_pwm = 500 + control;
+        right_pwm = 550 - control;
+    }
+    else if (error > 1.5)
+    {
+        left_pwm = 550 - control;
+        right_pwm = 500 + control;
+    }
+
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+
+    car_stright(left_pwm, right_pwm);
+}
+
+void CarBack2(void)
+{
+    float current_yaw = 0.0;
+    int left_pwm = 500;
+    int right_pwm = 500;
+
+    float target_angle = 90.0;
+    float Kp = 1.0;
+    float Ki = 0;
+    float Kd = 0.01;
+    float integral = 0.0;
+    float error = 0;
+    float proportional, derivative, control;
+
+    current_yaw = get_yaw();
+    printf("current_yaw=  %.2f\r\n", current_yaw);
+    error = target_angle - current_yaw;
+    printf("error=  %.2f\r\n", error);
+
+    // 计算比例项、积分项、微分项
+    proportional = Kp * error;
+    integral += Ki * error;
+    derivative = Kd * (error - straight_previous_error);
+
+    // 计算控制量
+    control = proportional + integral + derivative;
+    control = control / 3;
+    // printf("control=  %.2f\r\n", control);
+    straight_previous_error = error;
+    // 左偏error < 0
+    if (error < -1.5)
+    {
+        left_pwm = 550 + control;
+        right_pwm = 500 - control;
+    }
+    else if (error > 1.5)
+    {
+        left_pwm = 500 - control;
+        right_pwm = 550 + control;
+    }
+
+    HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+
+    car_stright(left_pwm, right_pwm);
 }

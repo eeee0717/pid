@@ -78,6 +78,7 @@ void SystemClock_Config(void);
 // º¯ÊýÉùÃ÷
 void Mpu6050_Init(void);
 void Problem1(void);
+void Test(void);
 /* USER CODE END 0 */
 
 /**
@@ -157,7 +158,7 @@ int main(void)
   while (1)
   {
     Problem1();
-
+    // Test();
     // if (problem1_flag == 0)
     // {
     //   problem1_flag = CarStraight();
@@ -307,6 +308,37 @@ void Mpu6050_Init(void)
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
 }
 
+void Test(void)
+{
+  car_stright(500, 500);
+  delay_ms(1000);
+  car_stop();
+  delay_ms(1000);
+  while (1)
+  {
+    car_right_flag = CarLeft90();
+    while (car_right_flag)
+    {
+      car_stop();
+      delay_ms(1000);
+      motor_backward();
+      int count = 130;
+      while (count--)
+      {
+        CarBack();
+      }
+      car_stop();
+      delay_ms(1000);
+      count = 130;
+      motor_forward();
+      while (count--)
+      {
+        CarBack();
+      }
+    }
+  }
+}
+
 void Problem1(void)
 {
   if (car_straight_flag == 0)
@@ -323,8 +355,11 @@ void Problem1(void)
         car_stop();
         delay_ms(1000);
         motor_backward();
-        car_stright(600, 610);
-        delay_ms(700);
+        int count = 130;
+        while (count--)
+        {
+          CarBack();
+        }
         car_stop();
         delay_ms(3000);
         motor_forward();
@@ -340,25 +375,17 @@ void Problem1(void)
             car_stop();
             delay_ms(1000);
             motor_forward();
-            while (1)
+            count = 300;
+            while (count--)
             {
               CarStraight();
             }
+            while (1)
+            {
+              car_stop();
+            }
           }
         }
-
-        // car_left_flag = CarRight90();
-        // while (car_left_flag)
-        // {
-        //   car_stop();
-        //   delay_ms(1000);
-        //   motor_forward();
-        //   CarStraight();
-        //   delay_ms(5000);
-        //   car_stop();
-        //   while (1)
-        //     ;
-        // }
       }
     }
   }
