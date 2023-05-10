@@ -340,11 +340,10 @@ void Problem1(void)
             car_stop();
             delay_ms(1000);
             motor_forward();
-            car_stright(600, 610);
-            delay_ms(700);
-            car_stop();
             while (1)
-              ;
+            {
+              CarStraight();
+            }
           }
         }
 
