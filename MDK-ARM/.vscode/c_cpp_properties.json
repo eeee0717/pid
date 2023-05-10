@@ -12,12 +12,13 @@
                 "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\hardware\\MPU6050\\eMPL",
                 "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\hardware\\Car",
                 "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\hardware\\Servo",
+                "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\hardware\\Camera",
+                "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\hardware\\PID",
                 "D:\\keil5\\ARM\\ARMCC\\include",
                 "D:\\keil5\\ARM\\ARMCC\\include\\rw",
                 "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\MDK-ARM",
                 "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\Core\\Src",
-                "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\Drivers\\STM32F1xx_HAL_Driver\\Src",
-                "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\hardware\\PID"
+                "c:\\Users\\eeee\\Desktop\\20230505\\stm32\\pid_mpu6050\\pid\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

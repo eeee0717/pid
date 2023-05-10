@@ -3,6 +3,7 @@
 #include <math.h>
 #include "car.h"
 #include <stdio.h>
+#include "main.h"
 
 /** 示例代码
     car_left_flag = CarLeft90();
@@ -11,8 +12,28 @@
 */
 float left_previous_error = 0.0;
 float straight_previous_error = 0.0;
+
+void UsartTest(void)
+{
+
+    if (uart2_flag == 1)
+    {
+        if (uart2_buffer[0] == 'a')
+        {
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+            delay_ms(100);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+            delay_ms(100);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+            delay_ms(100);
+            HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        }
+        uart2_flag = 0;
+    }
+}
 int CarLeft90(void)
 {
+
     float current_yaw = 0.0;
     int left_pwm = 0;
     int right_pwm = 0;
@@ -52,9 +73,19 @@ int CarLeft90(void)
 
 void CarStraight(void)
 {
+
+    // if (uart2_buffer[0] == 'a')
+    // {
+    //     car_stop();
+    //     while (1)
+    //         ;
+
+    //     // flag_camera = camera_confirm(1);
+    // }
+
     float current_yaw = 0.0;
-    int left_pwm = 0;
-    int right_pwm = 0;
+    int left_pwm = 500;
+    int right_pwm = 500;
 
     float target_angle = 0.0; // 假设目标方向为90度
     float Kp = 1.0;
@@ -65,9 +96,9 @@ void CarStraight(void)
     float proportional, derivative, control;
 
     current_yaw = get_yaw();
-    printf("current_yaw=  %.2f\r\n", current_yaw);
+    // printf("current_yaw=  %.2f\r\n", current_yaw);
     error = target_angle - current_yaw;
-    printf("error=  %.2f\r\n", error);
+    // printf("error=  %.2f\r\n", error);
 
     // 计算比例项、积分项、微分项
     proportional = Kp * error;
@@ -77,7 +108,7 @@ void CarStraight(void)
     // 计算控制量
     control = proportional + integral + derivative;
     control = control / 3;
-    printf("control=  %.2f\r\n", control);
+    // printf("control=  %.2f\r\n", control);
     straight_previous_error = error;
     // 左偏error < 0
     if (error < 0)
@@ -91,6 +122,6 @@ void CarStraight(void)
         right_pwm = 550 + control;
     }
 
-    car_stright(left_pwm, right_pwm);
-    return;
+    // car_stright(left_pwm, right_pwm);
+    // return flag_camera;
 }

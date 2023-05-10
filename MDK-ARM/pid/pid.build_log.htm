@@ -21,17 +21,22 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.1.0
 Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
-C:\Users\eeee\Desktop\20230505\stm32\pid_mpu6050\pid\MDK-ARM\pid.uvprojx
-Project File Date:  05/08/2023
+c:\Users\eeee\Desktop\20230505\stm32\pid_mpu6050\pid\MDK-ARM\pid.uvprojx
+Project File Date:  05/09/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 1 (build 106)', folder: 'D:\keil5\ARM\ARMCC\Bin'
 Build target 'pid'
-compiling servo.c...
+compiling pid.c...
+..\hardware\PID\pid.c(87): warning:  #550-D: variable "left_pwm" was set but never used
+      int left_pwm = 500;
+..\hardware\PID\pid.c(88): warning:  #550-D: variable "right_pwm" was set but never used
+      int right_pwm = 500;
+..\hardware\PID\pid.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=11040 RO-data=292 RW-data=20 ZI-data=2068  
+Program Size: Code=29030 RO-data=3778 RW-data=104 ZI-data=2080  
 FromELF: creating hex file...
-"pid\pid.axf" - 0 Error(s), 0 Warning(s).
+"pid\pid.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 

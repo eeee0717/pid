@@ -10,6 +10,8 @@
         "car.h": "c",
         "stdio.h": "c",
         "tim.h": "c",
-        "servo.h": "c"
+        "servo.h": "c",
+        "main.h": "c",
+        "usart.h": "c"
     }
 }

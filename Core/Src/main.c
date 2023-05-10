@@ -33,15 +33,18 @@
 #include <math.h>
 #include "car.h"
 #include "servo.h"
-
+#include "pid.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+
 uint8_t uart1_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
 uint8_t uart1_flag = 0;  // uart1_flag
 uint8_t uart2_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
-uint8_t uart2_flag = 0;  // uart1_flag
+uint8_t uart2_flag = 0;
+uint8_t uart3_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
+uint8_t uart3_flag = 0;  // uart1_flag
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -71,6 +74,7 @@ void SystemClock_Config(void);
 
 // 函数声明
 void Mpu6050_Init(void);
+void Problem1(void);
 /* USER CODE END 0 */
 
 /**
@@ -93,6 +97,8 @@ int main(void)
   // float error = 0;
   // float proportional, derivative, control;
   int car_left_uart1_flag = 0;
+  int problem1_flag = 0;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -130,14 +136,15 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
   HAL_UART_Receive_IT(&huart1, uart1_buffer, sizeof(uart1_buffer));
   HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer));
+  HAL_UART_Receive_IT(&huart3, uart3_buffer, sizeof(uart3_buffer));
 
   // 舵机初始化
-  servo_init();
-  // Mpu6050_Init();
+  // servo_init();
+  Mpu6050_Init();
   // 左转
   // motor_turn_left();
   // 正转
-  // motor_forward();
+  motor_forward();
 
   /* USER CODE END 2 */
 
@@ -146,23 +153,34 @@ int main(void)
 
   while (1)
   {
-    // CarStraight();
+    Problem1();
 
+    // if (problem1_flag == 0)
+    // {
+    //   problem1_flag = CarStraight();
+    // }
+
+    // if (problem1_flag == 1)
+    // {
+    //   motor_turn_left();
+    // CarLeft90();
+    // }
+    // UsartTest();
     // 调试串口用
-    if (uart2_flag == 1)
-    {
-      if (uart2_buffer[0] == 'a')
-      {
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        delay_ms(100);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        delay_ms(100);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        delay_ms(100);
-        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
-        uart2_flag = 0;
-      }
-    }
+    // if (uart2_flag == 1)
+    // {
+    //   if (uart2_buffer[0] == 'a')
+    //   {
+    //     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+    //     delay_ms(100);
+    //     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+    //     delay_ms(100);
+    //     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+    //     delay_ms(100);
+    //     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+    //     uart2_flag = 0;
+    //   }
+    // }
 
     // car_stright(left_pwm, right_pwm);
     // delay_ms(100);
@@ -253,8 +271,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     // 接收到数据后，将其存储到buffer数组中
     HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer)); // 再次启用串口接收中断，以接收下一批数据
     uart2_flag = 1;
-
-    // HAL_UART_Transmit(&huart1, uart1_buffer, sizeof(uart1_buffer), HAL_MAX_DELAY);
+    // 不能发！！！发了会清零
+    // HAL_UART_Transmit(&huart1, uart2_buffer, sizeof(uart2_buffer), HAL_MAX_DELAY);
   }
 }
 
@@ -272,6 +290,37 @@ void Mpu6050_Init(void)
   }
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
   printf("%s\r\n", "Mpu6050 Init OK!");
+}
+
+void Problem1(void)
+{
+  CarStraight();
+  //  UsartTest();
+
+  if (uart1_flag == 1)
+  {
+    if (uart1_buffer[0] == 'b')
+    {
+      while (1)
+      {
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        delay_ms(100);
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        delay_ms(100);
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        delay_ms(100);
+        HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+        car_stop();
+      }
+      // flag = camera_confirm(2);
+      // while (flag)
+      // {
+      //   UsartTest();
+      // }
+    }
+    uart1_buffer[0] = 0;
+    uart1_flag = 0;
+  }
 }
 /* USER CODE END 4 */
 

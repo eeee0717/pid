@@ -21,6 +21,13 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+// uint8_t uart1_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
+// uint8_t uart1_flag = 0;  // uart1_flag
+// uint8_t uart2_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
+// uint8_t uart2_flag = 0;
+// uint8_t uart3_buffer[1]; // 定义一个长度为10的数组，用于存储接收到的数据
+// uint8_t uart3_flag = 0;  // uart1_flag
+
 #define USE_PRINT
 #ifdef USE_PRINT
 // 编译器不使用MicroLib库
@@ -39,12 +46,11 @@ struct __FILE __stdout;
 int fputc(int ch, struct __FILE *stream)
 {
   // 判断串口是否发送完成
-  while (((USART1->SR & USART_SR_TXE) == 0) || ((USART2->SR & USART_SR_TXE) == 0))
+  while (((USART1->SR & USART_SR_TXE) == 0))
     ;
   // 如果串口已经发送完成，发送下一个字符
   USART1->DR = (uint8_t)ch;
   // 如果串口已经发送完成，发送下一个字符
-  USART2->DR = (uint8_t)ch;
   return ch;
 }
 #endif
