@@ -141,6 +141,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart1, (uint8_t *)&uart1_buffer, sizeof(uart1_buffer));
   HAL_UART_Receive_IT(&huart2, uart2_buffer, sizeof(uart2_buffer));
   HAL_UART_Receive_IT(&huart3, uart3_buffer, sizeof(uart3_buffer));
+  uart3_buffer[0] = 'b';
 
   // 舵机初始化
   // servo_init();
@@ -154,10 +155,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  delay_ms(3000);
   while (1)
   {
-    Problem1();
+    if (uart3_buffer[0] == 'b')
+      Problem1();
+    if (uart3_buffer[0] == 'a')
+      car_stop();
+    if (uart3_buffer[0] == 'c')
+      car_stop();
     // Test();
     // if (problem1_flag == 0)
     // {
@@ -268,7 +274,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     uart1_flag = 1;
     if (uart1_flag == 1)
     {
-      if (uart1_buffer == 'b')
+      if (uart1_buffer == uart3_buffer[0])
       {
         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
         car_straight_flag = 1;
@@ -287,7 +293,23 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     uart2_flag = 1;
 
     // 不能发！！！发了会清零
-    HAL_UART_Transmit(&huart2, uart2_buffer, sizeof(uart2_buffer), HAL_MAX_DELAY);
+    // HAL_UART_Transmit(&huart2, uart2_buffer, sizeof(uart2_buffer), HAL_MAX_DELAY);
+  }
+  if (huart->Instance == USART3)
+  {
+    // 接收到数据后，将其存储到buffer数组中
+    if (uart3_buffer[0] == 'b')
+    {
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+    }
+    else
+    {
+      HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+    }
+    HAL_UART_Receive_IT(&huart3, uart3_buffer, sizeof(uart3_buffer)); // 再次启用串口接收中断，以接收下一批数据
+    uart3_flag = 1;
+    // 不能发！！！发了会清零
+    // HAL_UART_Transmit(&huart2, uart2_buffer, sizeof(uart2_buffer), HAL_MAX_DELAY);
   }
 }
 

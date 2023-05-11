@@ -1,11 +1,3 @@
-*** Using Compiler 'V5.05 update 1 (build 106)', folder: 'D:\keil5\ARM\ARMCC\Bin'
-Build target 'pid'
-compiling main.c...
-../Core/Src/main.c(104): warning:  #177-D: variable "problem1_flag" was declared but never referenced
-    int problem1_flag = 0;
-../Core/Src/main.c: 1 warning, 0 errors
-linking...
-Program Size: Code=34418 RO-data=3950 RW-data=116 ZI-data=2084  
-FromELF: creating hex file...
-"pid\pid.axf" - 0 Error(s), 1 Warning(s).
-Build Time Elapsed:  00:00:01
+Load "pid\\pid.axf" 
+Erase Done.Programming Done.Verify OK.Application running ...
+Flash Load finished at 11:15:42
