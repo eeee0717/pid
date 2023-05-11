@@ -161,12 +161,12 @@ int main(void)
   delay_ms(3000);
   while (1)
   {
-    // if (uart3_buffer[0] == 'b')
-    //   Problem1();
-    // if (uart3_buffer[0] == 'a')
-    //   Problem1();
-    // if (uart3_buffer[0] == 'c')
-    //   Problem1();
+    if (uart3_buffer[0] == 'b')
+      Problem1();
+    if (uart3_buffer[0] == 'a')
+      Problem1();
+    if (uart3_buffer[0] == 'c')
+      Problem1();
 
     // Test();
     // if (problem1_flag == 0)
