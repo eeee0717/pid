@@ -371,6 +371,7 @@ void Problem1(void)
     CarStraight();
   if (car_straight_flag == 1)
   {
+    delay_ms(100);
     car_stop();
     delay_ms(1000);
     while (1)
@@ -381,7 +382,7 @@ void Problem1(void)
         car_stop();
         delay_ms(1000);
         motor_backward();
-        int count = 120;
+        int count = 100;
         while (count--)
         {
           CarBack();
