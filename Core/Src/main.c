@@ -382,7 +382,7 @@ void Problem1(void)
         car_stop();
         delay_ms(1000);
         motor_backward();
-        int count = 130;
+        int count = 120;
         while (count--)
         {
           CarBack();
@@ -390,8 +390,8 @@ void Problem1(void)
         car_stop();
         delay_ms(3000);
         motor_forward();
-        car_stright(600, 611);
-        delay_ms(700);
+        car_stright(600, 600);
+        delay_ms(650);
         car_stop();
         delay_ms(700);
         while (1)

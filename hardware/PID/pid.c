@@ -65,8 +65,8 @@ int CarLeft90(void)
     printf("control=  %.2f\r\n", control);
     control = control / 3;
     left_previous_error = error;
-    left_pwm = 500 + control;
-    right_pwm = 500 + control;
+    left_pwm = 490 + control;
+    right_pwm = 490 + control;
     car_left(left_pwm, right_pwm);
     if (fabs(error) < 1.5)
     {
@@ -107,8 +107,8 @@ int CarRight90(void)
     printf("control=  %.2f\r\n", control);
     left_previous_error = error;
     control = control / 3;
-    left_pwm = 500 - control;
-    right_pwm = 500 - control;
+    left_pwm = 490 - control;
+    right_pwm = 490 - control;
     car_right(left_pwm, right_pwm);
     if (fabs(error) < 1.5)
     {
@@ -122,7 +122,7 @@ void CarStraight(void)
 {
 
     float current_yaw = 0.0;
-    int left_pwm = 500;
+    int left_pwm = 495;
     int right_pwm = 500;
 
     float target_angle = 0.0;
@@ -145,19 +145,19 @@ void CarStraight(void)
 
     // 计算控制量
     control = proportional + integral + derivative;
-    control = control / 3;
+    control = control / 2;
     // printf("control=  %.2f\r\n", control);
     straight_previous_error = error;
     // 左偏error < 0
     if (error < 0)
     {
-        left_pwm = 550 + control;
-        right_pwm = 500 - control;
+        left_pwm = 520 + control;
+        right_pwm = 495-control;
     }
     else if (error > 0)
     {
-        left_pwm = 500 - control;
-        right_pwm = 550 + control;
+        left_pwm = 490-control;
+        right_pwm = 520 + control;
     }
     if (left_pwm < 450)
         left_pwm = 450;
@@ -200,13 +200,13 @@ void CarBack(void)
     // 左偏error < 0
     if (error < -1.5)
     {
-        left_pwm = 500 + control;
+        left_pwm = 520 + control;
         right_pwm = 550 - control;
     }
     else if (error > 1.5)
     {
         left_pwm = 550 - control;
-        right_pwm = 500 + control;
+        right_pwm = 520 + control;
     }
 
     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
