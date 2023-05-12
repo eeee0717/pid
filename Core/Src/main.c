@@ -81,6 +81,7 @@ void Problem1(void);
 void Test(void);
 void BuzzleOn(void);
 void BuzzleOff(void);
+void Voice(void);
 /* USER CODE END 0 */
 
 /**
@@ -371,7 +372,7 @@ void Problem1(void)
     CarStraight();
   if (car_straight_flag == 1)
   {
-    delay_ms(100);
+    delay_ms(180);
     car_stop();
     delay_ms(1000);
     while (1)
@@ -388,7 +389,7 @@ void Problem1(void)
           CarBack();
         }
         car_stop();
-        delay_ms(3000);
+        Voice();
         motor_forward();
         car_stright(600, 600);
         delay_ms(650);
@@ -425,6 +426,27 @@ void BuzzleOn(void)
 void BuzzleOff(void)
 {
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+}
+
+void Voice(void)
+{
+  BuzzleOn();
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  delay_ms(1000);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); // LED0对应引脚PB5拉低，亮，等同于LED0(0)
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  delay_ms(1000);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  delay_ms(1000);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  delay_ms(1000);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+  delay_ms(1000);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET);
+  BuzzleOff();
 }
 /* USER CODE END 4 */
 
